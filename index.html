@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אוריה – תכשיטים עם נשמה</title>
+<link href="file:///C:/Users/amos0/Pictures/Screenshots/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202025-10-05%20063159.png" rel="stylesheet">
+<style>
+/* ===== Reset & Base ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Assistant',sans-serif;direction:rtl;background:#fff;color:#222;scroll-behavior:smooth;}
+a{text-decoration:none;color:inherit;}
+:root{--gold:#bfa14f;--dark:#111;--light:#fff;--shadow:rgba(0,0,0,0.3);}
+
+/* ===== Header ===== */
+header{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);z-index:1000;transition:0.5s;}
+header.scrolled{background:rgba(255,255,255,0.95);}
+.logo img{height:60px;}
+nav ul{display:flex;gap:30px;list-style:none;}
+nav ul li a{font-weight:700;color:#222;transition:0.3s;}
+nav ul li a:hover{color:var(--gold);}
+
+/* ===== Hero ===== */
+.hero{position:relative;height:90vh;background:url('https://www.tanaor.com/wp-content/uploads/2023/01/jewelry-main.jpg') center/cover no-repeat;display:flex;justify-content:center;align-items:center;text-align:center;color:#fff;}
+.hero h1{font-family:'Amiri',serif;font-size:4rem;background:rgba(0,0,0,0.5);padding:30px;border-radius:15px;animation:fadeInDown 1.5s ease;}
+@keyframes fadeInDown{0%{opacity:0;transform:translateY(-50px);}100%{opacity:1;transform:translateY(0);}}
+
+/* ===== Sections ===== */
+section{padding:120px 20px;max-width:1200px;margin:0 auto;}
+h2{font-family:'Amiri',serif;font-size:2.5rem;margin-bottom:30px;color:var(--gold);text-align:center;}
+p{font-size:1.2rem;line-height:1.9;text-align:center;max-width:850px;margin:0 auto;opacity:0;transform:translateY(50px);transition:0.8s ease;}
+p.visible{opacity:1;transform:translateY(0);}
+
+/* ===== Products Grid ===== */
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
+.product-card{border:1px solid #ccc;border-radius:15px;padding:15px;text-align:center;transition:0.3s;position:relative;background:#fff;box-shadow:0 5px 15px var(--shadow);}
+.product-card img{width:100%;height:200px;object-fit:cover;border-radius:15px;margin-bottom:15px;cursor:pointer;transition:0.4s;}
+.product-card img:hover{transform:scale(1.05);}
+.product-card h3{margin-bottom:10px;color:#222;font-size:1.1rem;}
+.product-card p{color:#555;margin-bottom:10px;font-weight:700;}
+.product-card button{padding:12px 20px;background:var(--gold);border:none;color:#fff;font-weight:700;cursor:pointer;border-radius:8px;transition:0.3s;width:100%;}
+.product-card button:hover{background:#a68c3e;}
+
+/* ===== Lightbox ===== */
+#lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;justify-content:center;align-items:center;visibility:hidden;opacity:0;transition:0.5s;z-index:2000;}
+#lightbox img{max-width:90%;max-height:80%;border-radius:10px;}
+#lightbox.visible{visibility:visible;opacity:1;}
+
+/* ===== Cart Sidebar ===== */
+#cartSidebar{position:fixed;top:0;right:-400px;width:350px;height:100%;background:#fff;box-shadow:-5px 0 20px var(--shadow);padding:20px;transition:0.5s;overflow-y:auto;z-index:2000;}
+#cartSidebar.active{right:0;}
+#cartSidebar h2{text-align:center;margin-bottom:20px;color:var(--gold);}
+.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;gap:5px;}
+.cart-item span{font-weight:700;}
+.cart-item button{padding:5px 10px;background:#ff4c4c;color:#fff;border:none;border-radius:5px;cursor:pointer;}
+.cart-actions{display:flex;justify-content:center;margin-top:20px;gap:10px;}
+#cartSidebar button.sendCart{padding:12px;background:var(--gold);border:none;color:#fff;font-weight:700;cursor:pointer;border-radius:8px;transition:0.3s;width:100%;}
+#cartSidebar button.sendCart:hover{background:#a68c3e;}
+
+/* ===== FAQ ===== */
+.faq{max-width:800px;margin:50px auto;}
+.faq-item{border-bottom:1px solid #ccc;margin-bottom:15px;}
+.faq-question{font-weight:700;font-size:1.2rem;padding:15px;cursor:pointer;position:relative;}
+.faq-question::after{content:'+';position:absolute;left:20px;top:50%;transform:translateY(-50%);font-size:1.5rem;transition:0.3s;}
+.faq-question.active::after{content:'–';}
+.faq-answer{max-height:0;overflow:hidden;padding:0 15px;transition:max-height 0.5s ease, padding 0.5s;}
+.faq-answer p{margin:10px 0;}
+
+/* ===== Footer ===== */
+footer{background:var(--dark);color:#fff;text-align:center;padding:50px 20px;}
+footer a{color:var(--gold);}
+
+/* ===== Responsive ===== */
+@media(max-width:768px){nav ul{flex-direction:column;gap:15px;}.hero h1{font-size:2.5rem;padding:20px;}#cartSidebar{width:80%;}}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="logo"><img src="file:///C:/Users/amos0/Pictures/Screenshots/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202025-10-05%20063159.png" alt="לוגו אוריה"></div>
+    <nav>
+        <ul>
+            <li><a href="#hero">בית</a></li>
+            <li><a href="#products">קטלוג</a></li>
+            <li><a href="#faq">שאלות נפוצות</a></li>
+            <li><a href="#" id="cartToggle">סל קניות</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+    <h1>אוריה – תכשיטים עם נשמה</h1>
+</section>
+
+<!-- Products -->
+<section id="products">
+    <h2>הקטלוג שלנו</h2>
+    <div class="products" id="productContainer">
+        <!-- 10 מוצרים מלאים -->
+        <div class="product-card" data-name="  מזוזה עם ברכה" data-price="₪499" data-img="https://www.tanaor.com/wp-content/uploads/2023/01/jewelry1.jpg">
+            <img src="file:///C:/Users/amos0/Pictures/Screenshots/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202025-10-05%20091927.png" alt="  מזוזה עם ברכה">
+            <h3>  מזוזה עם ברכה</h3>
+            <p>₪499</p>
+            <button class="addToCart">הוסף לסל</button>
+        </div>
+        <div class="product-card" data-name=" כיסוי לטלפון עם משפט חיזוק " data-price="₪89" data-img="https://www.tanaor.com/wp-content/uploads/2023/01/jewelry2.jpg">
+            <img src="file:///C:/Users/amos0/Pictures/Screenshots/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202025-10-05%20090109.png" alt=" כיסוי לטלפון עם משפט חיזוק ">
+            <h3> כיסוי לטלפון עם משפט חיזוק </h3>
+            <p>₪89</p>
+            <button class="addToCart">הוסף לסל</button>
+        </div>
+        <div class="product-card" data-name="  כיסוי לטלפון רבי נחמן" data-price="₪89" data-img="https://www.tanaor.com/wp-content/uploads/2023/01/jewelry3.jpg">
+            <img src="file:///C:/Users/amos0/Pictures/Screenshots/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202025-10-05%20090211.png" alt=" כיסוי לטלפון רבי נחמן ">
+            <h3>כיסוי לטלפון רבי נחמן</h3>
+            <p>₪89</p>
+            <button class="addToCart">הוסף לסל</button>
+        </div>
+        <div class="product-card" data-name=" צמיד מגן דוד  " data-price="₪99" data-img="https://www.tanaor.com/wp-content/uploads/2023/01/jewelry4.jpg">
+            <img src="file:///C:/Users/amos0/Pictures/Screenshots/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202025-10-05%20090142.png" alt="צמיד  מגן דוד">
+            <h3>צמיד מגן דוד</h3>
+            <p>₪99</p>
+            <button class="addToCart">הוסף לסל</button>
+        </div>
+        <div class="product-card" data-name="טבעת עם ישראל (זהב) " data-price="₪299" data-img="https://www.tanaor.com/wp-content/uploads/2023/01/jewelry5.jpg">
+            <img src="file:///C:/Users/amos0/Pictures/Screenshots/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202025-10-05%20080115.png" alt="טבעת עם ישראל (זהב)">
+            <h3>טבעת עם ישראל (זהב)</h3>
+            <p>₪299</p>
+            <button class="addToCart">הוסף לסל</button>
+        </div>
+        <div class="product-card" data-name=" תליון בן פורת יוסף (כסף)  " data-price="₪199" data-img="https://www.tanaor.com/wp-content/uploads/2023/01/jewelry6.jpg">
+            <img src="file:///C:/Users/amos0/Pictures/Screenshots/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202025-10-05%20075619.png" alt="תליון בן פורת יוסף (כסף)">
+            <h3>   תליון בן פורת יוסף (כסף) </h3>
+            <p>₪199</p>
+            <button class="addToCart">הוסף לסל</button>
+        </div>
+        <div class="product-card" data-name=" שרשרת ארץ ישראל (זהב) " data-price="₪299" data-img="https://www.tanaor.com/wp-content/uploads/2023/01/jewelry7.jpg">
+            <img src="file:///C:/Users/amos0/Pictures/Screenshots/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202025-10-05%20075426.png" alt=" שרשרת ארץ ישראל (זהב) ">
+            <h3>שרשרת ארץ ישראל (זהב)</h3>
+            <p>₪299</p>
+            <button class="addToCart">הוסף לסל</button>
+        </div>
+        <div class="product-card" data-name=" מתנה לאמא" data-price="₪249" data-img="https://www.tanaor.com/wp-content/uploads/2023/01/jewelry8.jpg">
+            <img src="https://ae-pic-a1.aliexpress-media.com/kf/S99258f4c2475408e81f475f3abf77e04u.jpg_220x220q75.jpg_.avif" alt="מתנה לאמא">
+            <h3> מתנה לאמא</h3>
+            <p>249₪</p>
+            <button class="addToCart">הוסף לסל</button>
+        </div>
+        <div class="product-card" data-name="מתנה לאישה data-price="₪249" data-img="https://www.tanaor.com/wp-content/uploads/2023/01/jewelry9.jpg">
+            <img src="https://ae-pic-a1.aliexpress-media.com/kf/S7a76cad71a70497184cd6d438fdede3fG.jpg_220x220q75.jpg_.avif" alt=" מתנה לאישה">
+            <h3> מתנה לאישה </h3>
+            <p>₪249</p>
+            <button class="addToCart">הוסף לסל</button>
+        </div>
+        <div class="product-card" data-name="שרשרת אין לי ארץ אחרת (כסף)" data-price="₪299" data-img="https://www.tanaor.com/wp-content/uploads/2023/01/jewelry10.jpg">
+            <img src="file:///C:/Users/amos0/Pictures/Screenshots/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202025-10-05%20075417.png" alt="שרשרת אין לי ארץ אחרת (כסף)">
+            <h3> שרשרת אין לי ארץ אחרת (כסף)</h3>
+            <p>₪299</p>
+            <button class="addToCart">הוסף לסל</button>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+    <h2>שאלות נפוצות</h2>
+    <div class="faq">
+        <div class="faq-item">
+            <div class="faq-question">כמה זמן משלוח?</div>
+            <div class="faq-answer"><p>משלוח מהיר בישראל לוקח בין 14-20 ימי עסקים.</p></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">אפשרויות תשלום?</div>
+            <div class="faq-answer"><p>תשלום בכרטיסי אשראי, PayPal או העברה בנקאית.</p></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">מדיניות החזרות?</div>
+            <div class="faq-answer"><p>ניתן להחזיר או להחליף מוצר תוך 14 יום מיום קבלתו.</p></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">האם המוצרים חרוטים ביד?</div>
+            <div class="faq-answer"><p>כן, כל תכשיט מעוצב וחרוט בעבודת יד.</p></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">האם ניתן להזמין בהתאמה אישית?</div>
+            <div class="faq-answer"><p>בהחלט! אפשר להזמין עם חריטה אישית או עיצוב ייחודי.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Cart Sidebar -->
+<div id="cartSidebar">
+    <h2>סל קניות</h2>
+    <div id="cartItems"></div>
+    <div class="cart-actions">
+        <button class="sendCart" id="sendWhatsapp">שלח בווצאפ</button>
+        <button id="closeCart">סגור</button>
+    </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox"><img src="" alt=""></div>
+
+<!-- Footer -->
+<footer>
+    &copy; 2025 אוריה – תכשיטים עם נשמה. כל הזכויות שמורות.<br>
+    <a href="mailto:7777avioz@gmail.com">7777avioz@gmail.com</a>
+    <a href="הטלפון שלנו: 0547925652">הטלפון שלנו: 0547925652</a>
+    <a href="instagram: avioz_cohen">instagram: avioz_cohen</a>
+</footer>
+
+<script>
+// ===== Scroll Header =====
+window.addEventListener('scroll',()=>{
+    const header=document.querySelector('header');
+    if(window.scrollY>50){header.classList.add('scrolled');}
+    else{header.classList.remove('scrolled');}
+});
+
+// ===== FAQ Accordion =====
+document.querySelectorAll('.faq-question').forEach(q=>{
+    q.addEventListener('click',()=>{
+        q.classList.toggle('active');
+        const answer=q.nextElementSibling;
+        if(answer.style.maxHeight){
+            answer.style.maxHeight=null;
+            answer.style.padding='0 15px';
+        }else{
+            answer.style.maxHeight=answer.scrollHeight + "px";
+            answer.style.padding='15px';
+        }
+    });
+});
+
+// ===== Cart System =====
+let cart = [];
+const cartSidebar = document.getElementById('cartSidebar');
+const cartItemsDiv = document.getElementById('cartItems');
+
+function updateCart(){
+    cartItemsDiv.innerHTML='';
+    cart.forEach((item,index)=>{
+        const div = document.createElement('div');
+        div.classList.add('cart-item');
+        div.innerHTML=`<span>${item.name} - ${item.price}</span><button data-index="${index}" class="removeItem">הסר פריט</button>`;
+        cartItemsDiv.appendChild(div);
+    });
+    document.querySelectorAll('.removeItem').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+            cart.splice(btn.dataset.index,1);
+            updateCart();
+        });
+    });
+}
+
+document.querySelectorAll('.addToCart').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        const card = btn.closest('.product-card');
+        const name = card.dataset.name;
+        const price = card.dataset.price;
+        cart.push({name, price});
+        updateCart();
+        cartSidebar.classList.add('active');
+    });
+});
+
+document.getElementById('cartToggle').addEventListener('click',()=>{cartSidebar.classList.add('active');});
+document.getElementById('closeCart').addEventListener('click',()=>{cartSidebar.classList.remove('active');});
+
+document.getElementById('sendWhatsapp').addEventListener('click',()=>{
+    if(cart.length==0){alert('סל הקניות ריק!');return;}
+    let message='שלום, אני רוצה להזמין את המוצרים הבאים:%0A';
+    cart.forEach(item=>{message+=`- ${item.name} (${item.price})%0A`;});
+    window.open(`https://wa.me/97254792562?text=${message}`,'_blank');
+});
+
+// ===== Lightbox =====
+const lightbox = document.getElementById('lightbox');
+document.querySelectorAll('.product-card img').forEach(img=>{
+    img.addEventListener('click',()=>{
+        lightbox.querySelector('img').src=img.src;
+        lightbox.classList.add('visible');
+    });
+});
+lightbox.addEventListener('click',()=>{lightbox.classList.remove('visible');});
+
+// ===== Scroll Animations =====
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){entry.target.classList.add('visible');}
+    });
+},{threshold:0.2});
+document.querySelectorAll('p').forEach(p=>observer.observe(p));
+</script>
+
+</body>
+</html>
